@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>HackerEarth's Shopping Cart</title>
+    <title>Shopping Cart</title>
     <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -8,24 +8,38 @@
     />
     <link
       rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
     />
     <link
       rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-<script src    ="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
     <style>
+      .navbar {
+        height: 40px;
+        width: 100%;
+        background-color: #f5f5f5;
+        margin-bottom: 20px;
+      }
+      .title {
+        font-size: 30px;
+      }
       .card-title {
-        margin-top: 15px;
-        color: #3d3d3d;
+       
+    color: #3d3d3d;
+    margin-top:12px;
+    margin-left: -28px;
       }
       .card {
-        box-shadow: 2px 2px 2px #eee;
         border-radius: 0;
         border: 1;
-        margin-bottom: 7px;
+        margin-bottom: 0px;
         display: inline-block;
+            box-shadow: 0.15px 0.15px 0.15px 0.25px;
+     
+
       }
       .items {
         margin-bottom: 7px;
@@ -41,14 +55,10 @@
         display: inline-block;
         margin-left: 80px;
       }
-      .card:hover {
-        box-shadow: 3px 3px 3px #eee;
-        transition: 1s;
-      }
-      .close-button {
+
+      .close {
         float: right;
         cursor: pointer;
-        color: #a9a9a9;
       }
       font {
         font-size: 25px;
@@ -57,20 +67,26 @@
       input[type="text"] {
         width: 55px;
         height: 55px;
-        padding: 12px;
+        padding: 15px;
+        text-align: center;
+        background: white;
+        border-style: outset;
+        border: 1px solid rgba(0,0,0,.125);
+        box-shadow: 0.15px 0.15px 0.15px 0.25px;
+            margin-top: 4px;
       }
       .qty-btn {
         cursor: pointer;
-        color: #a9a9a9;
+        color: #706f6f;
       }
 
       .cart {
         width: 300px;
-        margin-top: 55px;
-        border: 1px solid #d3d3d3;
-        height: 169px;
-        padding: 10px;
-        padding-left: 10px;
+        margin-top: 61px;
+        line-height: 30px;
+        border: 1px solid #8b8b8b;
+        height: 190px;
+        padding: 0px;
       }
 
       .margin {
@@ -78,24 +94,62 @@
       }
       .align {
         float: right;
-        padding-right: 30px;
+        padding-right: 20px;
+      }
+      .align1 {
+        padding-left: 20px;
       }
       .foot {
         padding-left: 10px;
       }
       .cart-foot {
-        background-color: #efefef;
+        background-color: #f5f5f5;
         padding-top: 10px;
         padding-bottom: 10px;
       }
-      .navbar {
-        height: 50px;
-        width: 100%;
-        background-color: #efefef;
-        margin-bottom: 25px;
+
+      .margin1{
+        margin-top: 100px;
       }
+
       .card {
         padding: 0;
+      }
+      .img-fluid {
+        margin:7px;
+        }
+      @media screen and (max-width: 1024px) {
+        .items {
+          margin-bottom: 7px;
+          display: inline-block;
+        }
+        .qty {
+          margin-bottom: 7px;
+          display: inline-block;
+          margin-left: 190px;
+        }
+        .price {
+          margin-bottom: 7px;
+          display: inline-block;
+          margin-left: 75px;
+        }
+      }
+
+      @media screen and (max-width: 900px) {
+        .items {
+          margin-bottom: 7px;
+          display: inline-block;
+        }
+        .qty {
+          margin-bottom: 7px;
+          display: inline-block;
+          margin-left: 190px;
+        }
+        .price {
+          margin-bottom: 7px;
+          display: inline-block;
+          margin-left: 75px;
+        }
       }
       @media screen and (max-width: 768px) {
         font {
@@ -120,12 +174,14 @@
           padding: 0;
         }
         .alert-box {
-          font-size: 12px;
+          font-size: 14px;
         }
         .cart {
           font-size: 14px;
           margin-top: 10px;
           margin-bottom: 40px;
+              margin-left: 6px;
+
         }
         .items {
           margin-bottom: 7px;
@@ -134,25 +190,79 @@
         .qty {
           margin-bottom: 7px;
           display: inline-block;
-          margin-left: 180px;
+          margin-left: 200px;
+        }
+        .price {
+          margin-bottom: 7px;
+          display: inline-block;
+          margin-left: 55px;
+        }
+      }
+      @media screen and (max-width: 600px) {
+        .items {
+          margin-bottom: 7px;
+          display: inline-block;
+        }
+        .qty {
+          margin-bottom: 7px;
+          display: inline-block;
+          margin-left: 200px;
+        }
+        .price {
+          margin-bottom: 7px;
+          display: inline-block;
+          margin-left: 50px;
+        }
+      }
+      @media screen and (max-width: 480px) {
+        .items {
+          margin-bottom: 7px;
+          display: inline-block;
+        }
+        .qty {
+          margin-bottom: 7px;
+          display: inline-block;
+              margin-left: 135px;
+
         }
         .price {
           margin-bottom: 7px;
           display: inline-block;
           margin-left: 45px;
         }
+
+        @media screen and (max-width: 320px) {
+        .items {
+          margin-bottom: 7px;
+          display: inline-block;
+        }
+        .qty {
+          margin-bottom: 7px;
+          display: inline-block;
+          margin-left: 110px;
+        }
+        .price {
+          margin-bottom: 7px;
+          display: inline-block;
+          margin-left: 40px;
+        }
+      }
       }
     </style>
   </head>
-  <body onload="setSize()" onresize="resize()">
+  <body onload="setComponents()" onresize="resize()">
+      		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <div class="navbar"></div>
     <div class="container">
-      <div class="row no-gutters">
+      <div class="row ">
         <div id="orders" class="col-md-8">
-          <i class="fas fa-chevron-left"></i> &nbsp; Order Summary
-          <hr />
+          <div class="title">
+            <i class="fa fa-angle-left"></i> &nbsp; Order Summary
+          </div>
+          <hr style="border: 1px solid #8b8b8b" />
           <div id="box"></div>
-          <hr />
+          <hr style="border: 1px solid #8b8b8b" />
           <div id="alert-box"></div>
           <div id="reload"></div>
           <div class=".table-responsive">
@@ -162,15 +272,104 @@
           </div>
         </div>
 
-        <div id="cart" class="col-md-4 cart">
+        <div id="cart" class=" cart col-md-4">
           <p id="total-price"></p>
         </div>
       </div>
     </div>
 
     <script>
+      var newItems = {
+        Data: [
+          {
+            id: 9090,
+            name: "Item1",
+            price: 200,
+            discount: 10,
+            type: "fiction",
+            img_url:
+              "https://store.lexisnexis.com.au/__data/media/catalog/thumb//placeholder.jpg",
+            qty: 1
+          },
+          {
+            id: 9091,
+            name: "Item2",
+            price: 250,
+            discount: 15,
+            type: "literature",
+            img_url:
+              "https://store.lexisnexis.com.au/__data/media/catalog/thumb//placeholder.jpg",
+            qty: 1
+          },
+          {
+            id: 9092,
+            name: "Item3",
+            price: 320,
+            discount: 5,
+            type: "literature",
+            img_url:
+              "https://store.lexisnexis.com.au/__data/media/catalog/thumb//placeholder.jpg",
+            qty: 1
+          },
+          {
+            id: 9093,
+            name: "Item4",
+            price: 290,
+            discount: 0,
+            type: "thriller",
+            img_url:
+              "https://store.lexisnexis.com.au/__data/media/catalog/thumb//placeholder.jpg",
+            qty: 1
+          },
+          {
+            id: 9094,
+            name: "Item5",
+            price: 500,
+            discount: 25,
+            type: "thriller",
+            img_url:
+              "https://store.lexisnexis.com.au/__data/media/catalog/thumb//placeholder.jpg",
+            qty: 1
+          },
+          {
+            id: 9095,
+            name: "Item6",
+            price: 150,
+            discount: 5,
+            type: "literature",
+            img_url:
+              "https://store.lexisnexis.com.au/__data/media/catalog/thumb//placeholder.jpg",
+            qty: 1
+          },
+          {
+            id: 9096,
+            name: "Item7",
+            price: 700,
+            discount: 22,
+            type: "literature",
+            img_url:
+              "https://store.lexisnexis.com.au/__data/media/catalog/thumb//placeholder.jpg",
+            qty: 1
+          },
+          {
+            id: 9097,
+            name: "Item8",
+            price: 350,
+            discount: 18,
+            type: "fiction",
+            img_url:
+              "https://store.lexisnexis.com.au/__data/media/catalog/thumb//placeholder.jpg",
+            qty: 1
+          }
+        ]
+      };
+      
+
+
+
       var items,
         i,
+        newItems,
         total = 0,
         count = 0,
         discount = 0,
@@ -263,12 +462,11 @@
           }
         ]
       };
-  
-      function setSize() {
-       
-        if(sessionStorage.getItem('key')){
+      
+      function setComponents() {
+         if(sessionStorage.getItem('key')){
          items=JSON.parse(sessionStorage.getItem('key'));
-        console.log(items);
+        //  console.log(items.Data);
         } 
           
         load(items);
@@ -282,7 +480,6 @@
           orders.setAttribute("class", "col-md-8 order-1");
           cart.setAttribute("class", "col-md-4 cart order-2");
         }
-           
       }
 
       function resize() {
@@ -305,22 +502,22 @@
           count +
           ')</div></td><div class="qty">Qty</div></td><div class="price">Price</div></td></tr>';
         document.getElementById("cart-items").innerHTML +=
-          "<tr><td><div class='card col-5'><div class='row no-gutters'><div class='col-auto'><img src=" +
+          "<tr><td><div class='card col-5'><div class='row '><div class='col-auto'><img src=" +
           items.Data[i].img_url +
           " class='img-fluid' width='40'></div><div class='col'><div class='card-block px-2'><p class='card-title'>" +
           items.Data[i].name +
-          " <span class='close-button' onclick='deleteItem(" +
+          " <span class='close' onclick='deleteItem(" +
           i +
           ")'>&times;</span></p></div></div></td>";
 
         document.getElementById("cart-items").innerHTML +=
-          " &nbsp; &nbsp; &nbsp; <td><span class='qty-btn' onclick='reduce(" +
+          " &nbsp; &nbsp; &nbsp; <td class='margin1'> <span class='qty-btn' onclick='decrease(" +
           items.Data[i].id +
-          ")'><i class='fas fa-minus'></i></span> <input type='text' id='item-qty' value=" +
+          ")'><i style='font-size:24px' class='fa'>&#xf068;</i></span> <input type='text' id='item-qty' value=" +
           items.Data[i].qty +
           " disabled> <span class='qty-btn' onclick='increase(" +
           items.Data[i].id +
-          ")'><i class='fas fa-plus'></i></span></td>";
+          ")'><i style='font-size:24px' class='fa fa-plus'></i></span></td>";
 
         document.getElementById("cart-items").innerHTML +=
           " &nbsp; &nbsp; &nbsp; <td>$" + items.Data[i].price + "</td></tr>";
@@ -329,37 +526,49 @@
       function Cart(amount, total, baseDiscount, tDiscount, count) {
         amount = total - baseDiscount - tDiscount;
         document.getElementById("total-price").innerHTML +=
-          "<b>Total<br></b>" +
-          "Items (" +
+          "<span class='align1'><b style='font-size:20px;'>Total<br></b></span>" +
+          "<span class='align1'>Items (" +
           count +
-          ") : <span class='align'>$" +
+          ") : </span><span class='align'>$" +
           total +
-          "</span><br><div class='margin'>discount :<span class='align'>- $" +
+          "</span><br><div class='margin'><span class='align1'>Discount :</span><span class='align'>- $" +
           baseDiscount +
-          "</span><br>Type discount : <span class='align'>- $" +
+          "</span><br><span class='align1'>Type Discount : </span><span class='align'>- $" +
           tDiscount +
-          "</span><br> <div class='cart-foot'>Order total : <span class='align '>$" +
+          "</span><br> <div class='cart-foot'><span class='align1'>Order Total :</span> <span class='align '>$" +
           amount +
           "</span>";
       }
+
       function load(tmp){
       for (i in tmp.Data) {
-        total += tmp.Data[i].price;
+        if(tmp.Data[i]!=null){
+        total += tmp.Data[i].price*items.Data[i].qty;
         discount = tmp.Data[i].discount;
-        baseDiscount += (tmp.Data[i].price / 100) * discount;
+        baseDiscount += (tmp.Data[i].price / 100) * discount * items.Data[i].qty;
         if (tmp.Data[i].type == "fiction") {
           discount = 15;
-          typeDiscount = (tmp.Data[i].price / 100) * discount;
+          typeDiscount = (tmp.Data[i].price / 100) * discount * items.Data[i].qty;
           tDiscount += typeDiscount;
         }
-        count += 1;
+        count += items.Data[i].qty;
         Items(i, count);
       }
       }
-      Cart(amount, total, baseDiscount, tDiscount, count);
+            Cart(amount, total, baseDiscount, tDiscount, count);
+      }
+
+      function demoVisibility() {
+            document.getElementById("myP2").style.visibility = "hidden";
+        } 
+     
 
       function deleteItem(i) {
+    
         delete items.Data[i];
+        console.log(newItems);
+        sessionStorage.setItem('key',JSON.stringify(items));
+          // console.log(items);
         document.getElementById("cart-items").innerHTML = "";
         document.getElementById("total-price").innerHTML = "";
         total = 0;
@@ -367,33 +576,48 @@
         tDiscount = 0;
         baseDiscount = 0;
 
-        for (i in items.Data) {
-          total += items.Data[i].price;
+        for (i in items.Data ) {
+          if(items.Data[i]!=null){
+          total += items.Data[i].price*items.Data[i].qty;
           discount = items.Data[i].discount;
-          baseDiscount += (items.Data[i].price / 100) * discount;
-          if ((items.Data[i].type = "fiction")) {
+          baseDiscount += (items.Data[i].price * items.Data[i].qty / 100) * discount;
+          if ((items.Data[i].type == "fiction")) {
             discount = 15;
-            typeDiscount = (items.Data[i].price / 100) * discount;
+            typeDiscount = (items.Data[i].price / 100) * discount * items.Data[i].qty;
             tDiscount += typeDiscount;
           }
-
+          count += items.Data[i].qty;
           Items(i, count);
-
-          count += 1;
         }
+      }
+      // onClick="demoVisibility()"
+        // document.getElementById("alert-box").innerHTML =
+          // '<div id="myP2" class="alert alert-info  role="alert">Item is removed from the cart.<button  type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+           document.getElementById("alert-box").innerHTML = '<div class="alert alert-info alert-dismissible fade show" role="alert">Item removed from cart!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+        
         document.getElementById("box").innerHTML =
           '<tr><td><div class="items">Items(' +
           count +
           ')</div></td><div class="qty">Qty</div></td><div class="price">Price</div></td></tr>';
         Cart(amount, total, baseDiscount, tDiscount, count);
-        document.getElementById("alert-box").innerHTML =
-          '<div class="alert alert-info alert-dismissible fade show" role="alert">Item removed from cart!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
-        if (count == 0)
+        var flag=0;
+        for (i in items.Data )
+        {
+           if(items.Data[i]!=null)
+           {
+             flag=1;
+             break;
+           }
+        }
+        if (flag==0)
+        {
+           sessionStorage.setItem('key',JSON.stringify(newItems));
           document.getElementById("reload").innerHTML =
-            "<button onClick='window.location.reload();'>Load the data</button>";
+            "<button onClick='window.location.reload(); items=newItems'>Load the data</button>";
+        }
       }
 
-      function reduce(id) {
+      function decrease(id) {
         var ide = id - 9090;
         if (items.Data[ide].qty != 0) {
           items.Data[ide].qty -= 1;
@@ -410,16 +634,19 @@
         }
         document.getElementById("cart-items").innerHTML = "";
         for (i in items.Data) {
+          if(items.Data[i]!=null)
           Items(i, count);
         }
 
         document.getElementById("total-price").innerHTML = "";
         Cart(amount, total, baseDiscount, tDiscount, count);
+        sessionStorage.setItem('key',JSON.stringify(items));
       }
 
       function increase(id) {
         count += 1;
         var ide = id - 9090;
+
         items.Data[ide].qty += 1;
         document.getElementById("cart-items").innerHTML = "";
         total += items.Data[ide].price;
@@ -432,15 +659,13 @@
           tDiscount += typeDiscount;
         }
         for (i in items.Data) {
+          if(items.Data[i]!=null)
           Items(i, count);
         }
         document.getElementById("total-price").innerHTML = "";
         Cart(amount, total, baseDiscount, tDiscount, count);
         sessionStorage.setItem('key',JSON.stringify(items));
-     
       }
-       
-      // Cookies.set('amount', 'total', 'baseDiscount', 'tDiscount', 'count');
     </script>
   </body>
 </html>
