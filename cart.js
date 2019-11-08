@@ -86,18 +86,9 @@
 
 
 
-      var items,
-        i,
-        newItems,
-        total = 0,
-        count = 0,
-        discount = 0,
-        amount = 0,
-        baseDiscount = 0,
-        typeDiscount = 0,
-        actualAmount = 0,
-        tDiscount = 0;
-      items = {
+      var obj,i,newItems,count = 0,discount = 0,amt = 0,normalDis = 0,typeDiscount = 0,actualAmount = 0,tDis = 0,tot = 0;
+
+      obj = {
         Data: [
           {
             id: 9090,
@@ -184,11 +175,11 @@
       
       function setComponents() {
          if(sessionStorage.getItem('key')){
-         items=JSON.parse(sessionStorage.getItem('key'));
-        //  console.log(items.Data);
+         obj=JSON.parse(sessionStorage.getItem('key'));
+        //  console.log(obj.Data);
         } 
           
-        load(items);
+        load(obj);
         var orders = document.getElementById("orders");
         var cart = document.getElementById("cart");
         var width = screen.width;
@@ -201,7 +192,7 @@
         }
       }
 
-      function resize() {
+      function cartPlacing() {
         var orders = document.getElementById("orders");
         var cart = document.getElementById("cart");
         var width = screen.width;
@@ -215,66 +206,65 @@
         }
       }
 
-      function Items(i) {
+      function ItemsListing(i) {
         document.getElementById("box").innerHTML =
           '<tr><td><div class="items">Items (' +
           count +
           ')</div></td><div class="qty">Qty</div></td><div class="price">Price</div></td></tr>';
         document.getElementById("cart-items").innerHTML +=
           "<tr><td><div class='card col-5'><div class='row '><div class='col-auto'><img src=" +
-          items.Data[i].img_url +
+          obj.Data[i].img_url +
           " class='img-fluid' width='40'></div><div class='col'><div class='card-block px-2'><p class='card-title'>" +
-          items.Data[i].name +
-          " <span class='close' onclick='deleteItem(" +
+          obj.Data[i].name +
+          " <span class='close' onclick='removeItem(" +
           i +
           ")'>&times;</span></p></div></div></td>";
 
         document.getElementById("cart-items").innerHTML +=
-          " &nbsp; &nbsp; &nbsp; <td class='margin1'> <span class='qty-btn' onclick='decrease(" +
-          items.Data[i].id +
+          " &nbsp; &nbsp; &nbsp; <td class='margin1'> <span class='qty-btn' onclick='sub(" +
+          obj.Data[i].id +
           ")'><i style='font-size:24px' class='fa'>&#xf068;</i></span> <input type='text' id='item-qty' value=" +
-          items.Data[i].qty +
-          " disabled> <span class='qty-btn' onclick='increase(" +
-          items.Data[i].id +
+          obj.Data[i].qty +
+          " disabled> <span class='qty-btn' onclick='add(" +
+          obj.Data[i].id +
           ")'><i style='font-size:24px' class='fa fa-plus'></i></span></td>";
 
         document.getElementById("cart-items").innerHTML +=
-          " &nbsp; &nbsp; &nbsp; <td>$" + items.Data[i].price + "</td></tr>";
+          " &nbsp; &nbsp; &nbsp; <td>$" + obj.Data[i].price + "</td></tr>";
       }
 
-      function Cart(amount, total, baseDiscount, tDiscount, count) {
-        amount = total - baseDiscount - tDiscount;
+      function Cart(amt, tot, normalDis, tDis, count) {
+        amt = tot - normalDis - tDis;
         document.getElementById("total-price").innerHTML +=
           "<span class='align1'><b style='font-size:20px;'>Total<br></b></span>" +
           "<span class='align1'>Items (" +
           count +
           ") : </span><span class='align'>$" +
-          total +
+          tot +
           "</span><br><div class='margin'><span class='align1'>Discount :</span><span class='align'>- $" +
-          baseDiscount +
+          normalDis +
           "</span><br><span class='align1'>Type Discount : </span><span class='align'>- $" +
-          tDiscount +
+          tDis +
           "</span><br> <div class='cart-foot'><span class='align1'>Order Total :</span> <span class='align '>$" +
-          amount +
+          amt +
           "</span>";
       }
 
       function load(tmp){
       for (i in tmp.Data) {
         if(tmp.Data[i]!=null){
-        total += tmp.Data[i].price*items.Data[i].qty;
+        tot += tmp.Data[i].price*tmp.Data[i].qty;
         discount = tmp.Data[i].discount;
-        baseDiscount += (tmp.Data[i].price / 100) * discount * items.Data[i].qty;
+        normalDis += (tmp.Data[i].price / 100) * discount * tmp.Data[i].qty;
         if (tmp.Data[i].type == "fiction") {
-          discount = 15;
-          typeDiscount = (tmp.Data[i].price / 100) * discount * items.Data[i].qty;
-          tDiscount += typeDiscount;
+          typeDiscount = (tmp.Data[i].price / 100) *(15)*(tmp.Data[i].qty);
+          tDis += typeDiscount;
         }
-        count += items.Data[i].qty;
-        Items(i, count);
+        count += obj.Data[i].qty;
+        ItemsListing(i, count);
       }
       }
-            Cart(amount, total, baseDiscount, tDiscount, count);
+            Cart(amt, tot, normalDis, tDis, count);
       }
 
       function demoVisibility() {
@@ -282,47 +272,47 @@
         } 
      
 
-      function deleteItem(i) {
+      function removeItem(i) {
     
-        delete items.Data[i];
+        delete obj.Data[i];
         console.log(newItems);
-        sessionStorage.setItem('key',JSON.stringify(items));
-          // console.log(items);
+        sessionStorage.setItem('key',JSON.stringify(obj));
         document.getElementById("cart-items").innerHTML = "";
         document.getElementById("total-price").innerHTML = "";
-        total = 0;
+        tot = 0;
         count = 0;
-        tDiscount = 0;
-        baseDiscount = 0;
+        tDis = 0;
+        normalDis = 0;
 
-        for (i in items.Data ) {
-          if(items.Data[i]!=null){
-          total += items.Data[i].price*items.Data[i].qty;
-          discount = items.Data[i].discount;
-          baseDiscount += (items.Data[i].price * items.Data[i].qty / 100) * discount;
-          if ((items.Data[i].type == "fiction")) {
-            discount = 15;
-            typeDiscount = (items.Data[i].price / 100) * discount * items.Data[i].qty;
-            tDiscount += typeDiscount;
+        for (i in obj.Data ) {
+          if(obj.Data[i]!=null){
+          tot += obj.Data[i].price*obj.Data[i].qty;
+          discount = obj.Data[i].discount;
+          normalDis += (obj.Data[i].price * obj.Data[i].qty / 100) * discount;
+          if ((obj.Data[i].type == "fiction")) {
+            typeDiscount = (obj.Data[i].price / 100) *(15)* (obj.Data[i].qty);
+            tDis += typeDiscount;
           }
-          count += items.Data[i].qty;
-          Items(i, count);
+          count += obj.Data[i].qty;
+          ItemsListing(i, count);
         }
       }
+      
+      //demmo
       // onClick="demoVisibility()"
         // document.getElementById("alert-box").innerHTML =
-          // '<div id="myP2" class="alert alert-info  role="alert">Item is removed from the cart.<button  type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
-           document.getElementById("alert-box").innerHTML = '<div class="alert alert-info alert-dismissible fade show" role="alert">Item removed from cart!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+          // '<div id="myP2" class="alert alert-danger  role="alert">Item is removed from the cart.<button  type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+           document.getElementById("alert-box").innerHTML = '<div class="alert alert-warning alert-dismissible fade show" role="alert">Item has been succesfully removed from cart!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
         
         document.getElementById("box").innerHTML =
           '<tr><td><div class="items">Items(' +
           count +
           ')</div></td><div class="qty">Qty</div></td><div class="price">Price</div></td></tr>';
-        Cart(amount, total, baseDiscount, tDiscount, count);
+        Cart(amt, tot, normalDis, tDis, count);
         var flag=0;
-        for (i in items.Data )
+        for (i in obj.Data )
         {
-           if(items.Data[i]!=null)
+           if(obj.Data[i]!=null)
            {
              flag=1;
              break;
@@ -336,52 +326,52 @@
         }
       }
 
-      function decrease(id) {
+      function sub(id) {
         var ide = id - 9090;
-        if (items.Data[ide].qty != 0) {
-          items.Data[ide].qty -= 1;
-          total -= items.Data[ide].price;
+        if (obj.Data[ide].qty != 0) {
+          obj.Data[ide].qty -= 1;
+          tot -= obj.Data[ide].price;
           count -= 1;
-          discount = items.Data[ide].discount;
-          baseDiscount -= (items.Data[ide].price / 100) * discount;
+          discount = obj.Data[ide].discount;
+          normalDis -= (obj.Data[ide].price / 100) * discount;
 
-          if (items.Data[ide].type == "fiction") {
+          if (obj.Data[ide].type == "fiction") {
             discount = 15;
-            typeDiscount = (items.Data[ide].price / 100) * discount;
-            tDiscount -= typeDiscount;
+            typeDiscount = (obj.Data[ide].price / 100) * discount;
+            tDis -= typeDiscount;
           }
         }
         document.getElementById("cart-items").innerHTML = "";
-        for (i in items.Data) {
-          if(items.Data[i]!=null)
-          Items(i, count);
+        for (i in obj.Data) {
+          if(obj.Data[i]!=null)
+          ItemsListing(i, count);
         }
 
         document.getElementById("total-price").innerHTML = "";
-        Cart(amount, total, baseDiscount, tDiscount, count);
-        sessionStorage.setItem('key',JSON.stringify(items));
+        Cart(amt, tot, normalDis, tDis, count);
+        sessionStorage.setItem('key',JSON.stringify(obj));
       }
 
-      function increase(id) {
+      function add(id) {
         count += 1;
         var ide = id - 9090;
 
-        items.Data[ide].qty += 1;
+        obj.Data[ide].qty += 1;
         document.getElementById("cart-items").innerHTML = "";
-        total += items.Data[ide].price;
-        discount = items.Data[ide].discount;
-        baseDiscount += (items.Data[ide].price / 100) * discount;
+        tot += obj.Data[ide].price;
+        discount = obj.Data[ide].discount;
+        normalDis += (obj.Data[ide].price / 100) * discount;
 
-        if (items.Data[ide].type == "fiction") {
+        if (obj.Data[ide].type == "fiction") {
           discount = 15;
-          typeDiscount = (items.Data[ide].price / 100) * discount;
-          tDiscount += typeDiscount;
+          typeDiscount = (obj.Data[ide].price / 100) * discount;
+          tDis += typeDiscount;
         }
-        for (i in items.Data) {
-          if(items.Data[i]!=null)
-          Items(i, count);
+        for (i in obj.Data) {
+          if(obj.Data[i]!=null)
+          ItemsListing(i, count);
         }
         document.getElementById("total-price").innerHTML = "";
-        Cart(amount, total, baseDiscount, tDiscount, count);
-        sessionStorage.setItem('key',JSON.stringify(items));
+        Cart(amt, tot, normalDis, tDis, count);
+        sessionStorage.setItem('key',JSON.stringify(obj));
       }
